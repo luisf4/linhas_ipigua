@@ -1,52 +1,144 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, camel_case_types, unused_local_variable, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class ListaOnibus extends StatelessWidget {
-  const ListaOnibus({Key? key}) : super(key: key);
-  dynamic listaCidade(cidade) {
-    return InkWell(
-      onTap: () {},
-      child: Center(
-        child: Container(
-          width: 99999,
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-          padding: EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            border:
-                Border.all(width: 1, color: Color.fromARGB(255, 69, 69, 69)),
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
-          child: Center(
-            child: Text(
-              cidade,
-              style: TextStyle(fontSize: 20.0),
-            ),
-          ),
-        ),
-      ),
-    );
+  @override
+  Widget build(BuildContext context) {
+    return StartPage();
   }
+}
+
+class StartPage extends StatefulWidget {
+  const StartPage({super.key});
+
+  @override
+  State<StartPage> createState() => _StartPageState();
+}
+
+class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Linhas Ipiguá"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-          child: Column(
-            children: [
-              listaCidade('Ipiguá -> Rio Preto'),
-              listaCidade("Rio Preto -> Ipiguá"),
-              listaCidade("S.J.R PRETO -> BADY BASSITT "),
-              listaCidade("BADY BASSITT -> SJRIO PRETO"),
-              listaCidade("SJRIO PRETO -> NOVA ALIANÇA "),
-              listaCidade("NOVA ALIANÇA -> SJ RIO PRETO"),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: Text("Home"),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const UserPage()));
+              },
+              child: Text("Login")),
+          ElevatedButton(onPressed: () {}, child: Text("Register")),
+        ],
+      ),
     );
   }
+}
+
+class UserPage extends StatefulWidget {
+  const UserPage({super.key});
+
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  final _controllerName = TextEditingController();
+  final _controllerAge = TextEditingController();
+  final _controllerBirthday = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Create User"),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: <Widget>[
+          TextField(
+            controller: _controllerName,
+            decoration: InputDecoration(
+              labelText: "Name",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          TextField(
+            controller: _controllerAge,
+            decoration: InputDecoration(
+              labelText: "Age",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          TextField(
+            controller: _controllerBirthday,
+            decoration: InputDecoration(
+              labelText: "Birthday",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          const SizedBox(
+            height: 35,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                final user = User(
+                  name: _controllerName.text,
+                  age: int.parse(_controllerAge.text),
+                  birthday: DateTime.parse(_controllerBirthday.text),
+                );
+
+                createUser(user);
+
+                Navigator.pop(context);
+              },
+              child: Text("Register User"))
+        ],
+      ),
+    );
+  }
+
+  Future createUser(User user) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc();
+    user.id = docUser.id;
+
+    final json = user.toJson();
+    await docUser.set(json);
+  }
+}
+
+class User {
+  String id;
+  final String name;
+  final int age;
+  final DateTime birthday;
+
+  User({
+    this.id = '',
+    required this.name,
+    required this.age,
+    required this.birthday,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'age': age,
+        'birthday': birthday,
+      };
 }

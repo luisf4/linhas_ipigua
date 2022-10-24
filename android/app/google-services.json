@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "814152845350",
+    "project_id": "onibus-df5a9",
+    "storage_bucket": "onibus-df5a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814152845350:android:136e8a5eafe8492cf87ee7",
+        "android_client_info": {
+          "package_name": "com.example.linhas_ipigua"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814152845350-93a24mt9nrars1sftdf8cr111c03dbb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG3_S7Ul4mv83RD1rMvlP_ghGdf4HSljI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814152845350-93a24mt9nrars1sftdf8cr111c03dbb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
