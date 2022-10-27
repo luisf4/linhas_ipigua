@@ -35,7 +35,46 @@ class _StartPageState extends State<StartPage> {
               },
               child: Text("Login")),
           ElevatedButton(onPressed: () {}, child: Text("Register")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ListUser()));
+              },
+              child: Text("List Users")),
         ],
+      ),
+    );
+  }
+}
+
+class ListUser extends StatefulWidget {
+  const ListUser({super.key});
+
+  @override
+  State<ListUser> createState() => _ListUserState();
+}
+
+class _ListUserState extends State<ListUser> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("User List"),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [
+          StreamBuilder<List<User>>(
+            stream:readUser(),
+            builder: (context,(context, snapshot) {
+             if (snapshot.hasData) {
+              final users = snapshot.data!;
+              return ListView(
+                children: users.map(buildUser).toList(),
+              );
+          }
+        }))],
       ),
     );
   }
@@ -119,6 +158,12 @@ class _UserPageState extends State<UserPage> {
 
     final json = user.toJson();
     await docUser.set(json);
+
+    Stream<List<User>> readUser() => FirebaseFirestore.instance
+        .collection('users')
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
   }
 }
 
@@ -141,4 +186,10 @@ class User {
         'age': age,
         'birthday': birthday,
       };
+
+  static User fromJson(Map<String, dynamic> json) => User(
+      id: json['id'],
+      name: json['name'],
+      age: json['age'],
+      birthday: (json['birthday'] as Timestamp).toDate());
 }
