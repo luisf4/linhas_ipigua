@@ -4,18 +4,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginWidget extends StatefulWidget {
-  final VoidCallback onClickedSignUp;
-
-  const LoginWidget({
+class SignUpWidget extends StatefulWidget {
+  final Function() onClikedSignIn;
+  const SignUpWidget({
     Key? key,
-    required this.onClickedSignUp,
+    required this.onClikedSignIn,
   }) : super(key: key);
+
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<SignUpWidget> createState() => _SignUpWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _SignUpWidgetState extends State<SignUpWidget> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   @override
@@ -25,6 +25,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -59,19 +60,19 @@ class _LoginWidgetState extends State<LoginWidget> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: ElevatedButton(
-                onPressed: signIn,
-                child: Text("Login"),
+                onPressed: signUp,
+                child: Text("Registrar"),
               ),
             ),
             RichText(
               text: TextSpan(
                   style: TextStyle(color: Colors.amber, fontSize: 15),
-                  text: "Não tem uma conta ? ",
+                  text: "Já tem uma conta ? ",
                   children: [
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = widget.onClickedSignUp,
-                      text: "Registrar-se",
+                        ..onTap = widget.onClikedSignIn,
+                      text: "Login",
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: Theme.of(context).colorScheme.secondary),
@@ -84,7 +85,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Future signIn() async {
+  Future signUp() async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -93,11 +94,11 @@ class _LoginWidgetState extends State<LoginWidget> {
       ),
     );
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       );
-    } on FirebaseAuth catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e);
     }
     Navigator.of(context).pop();
