@@ -74,8 +74,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   Future signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
+      email: _emailController.text,
+      password: _passwordController.text,
     );
   }
 }

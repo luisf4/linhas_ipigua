@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,10 +11,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Home"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home Page"),
+      ),
+      body: Column(
+        children: [
+          Center(
+            child: Text(user.email!),
+          ),
+          ElevatedButton(
+              onPressed: () => FirebaseAuth.instance.signOut(),
+              child: Text("Deslogar"))
+        ],
+      ),
     );
   }
 }
