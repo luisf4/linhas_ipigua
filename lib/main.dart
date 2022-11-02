@@ -6,8 +6,10 @@ import 'package:linhas_ipigua/views/ios/iosApp.app.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
+  // connecta com o firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  // inicia o app
   runApp(Platform.isIOS ? IosApp() : AndroidApp());
 }

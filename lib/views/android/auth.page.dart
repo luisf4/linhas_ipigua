@@ -1,4 +1,5 @@
-import 'package:flutter/src/widgets/container.dart';
+// ignore_for_file: implementation_imports
+
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:linhas_ipigua/views/android/widget/login.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/signup.widget.dart';

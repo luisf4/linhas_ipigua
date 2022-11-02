@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:linhas_ipigua/views/android/auth.page.dart';
 import 'package:linhas_ipigua/views/android/home.app.dart';
-import 'package:linhas_ipigua/views/android/widget/login.widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
+        // verifica se o usuario esta logado ou não
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

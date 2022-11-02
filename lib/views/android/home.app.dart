@@ -21,10 +21,10 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Center(
-            child: Text(user.email!),
+            child: Text(user.email!), // mostra o email do usuario logado
           ),
           ElevatedButton(
-              onPressed: () => FirebaseAuth.instance.signOut(),
+              onPressed: () => FirebaseAuth.instance.signOut(), // desloga
               child: Text("Deslogar"))
         ],
       ),

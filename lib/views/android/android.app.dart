@@ -2,13 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:linhas_ipigua/views/android/login.app.dart';
+import 'package:linhas_ipigua/views/android/models/utils.model.dart';
 import 'package:linhas_ipigua/views/android/register.app.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      scaffoldMessengerKey: Utils.messengerKey, // key para menssagens de erro
+      home: LoginPage(), // pagina inicial
+
+      // rotas
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
