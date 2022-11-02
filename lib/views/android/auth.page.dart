@@ -13,12 +13,15 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   bool isLogin = true;
+
   @override
+  //verifica se esta logado
   Widget build(BuildContext context) => isLogin
       ? LoginWidget(
           onClickedSignUp: toggle,
         )
       : SignUpWidget(onClikedSignIn: toggle);
 
+  // muda a pagina quando for clocado em uma das 2 opções
   void toggle() => setState(() => isLogin = !isLogin);
 }

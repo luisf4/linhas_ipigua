@@ -8,20 +8,25 @@ import 'package:linhas_ipigua/views/android/models/utils.model.dart';
 import 'package:linhas_ipigua/views/android/widget/forgot.widget.dart';
 
 class LoginWidget extends StatefulWidget {
+  //
   final VoidCallback onClickedSignUp;
-
+  //
   const LoginWidget({
     Key? key,
     required this.onClickedSignUp,
   }) : super(key: key);
+
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  //
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  // limpa as variaveis
   @override
   void dispose() {
     _emailController.dispose();
@@ -40,6 +45,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Form(
           key: formKey,
           child: SingleChildScrollView(
+            // transforma tudo wraped em rolaver
             child: Column(
               children: [
                 Padding(
@@ -59,6 +65,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           labelText: 'E-mail',
                           hintText: "Enter a e-mail"),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      // verifica se o email é valido
                       validator: (email) =>
                           email != null && !EmailValidator.validate(email)
                               ? "Use a valid email!"
@@ -75,6 +82,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         hintText: 'Enter Password',
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      // verifica se a senha podera ser usada
                       validator: (value) => value != null && value.length < 6
                           ? "Min 6 characters"
                           : null),
@@ -86,6 +94,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child: Text("Login"),
                   ),
                 ),
+                // basicamente um botão com outro nome
                 GestureDetector(
                   child: Text(
                     "Forgot password ?",
@@ -103,6 +112,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 SizedBox(
                   height: 20,
                 ),
+                // outro botão com frescuras
                 RichText(
                   text: TextSpan(
                     style: TextStyle(color: Colors.amber, fontSize: 15),
@@ -128,8 +138,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future signIn() async {
-    final isValid = formKey.currentState!
-        .validate(); // 'verifica' se os forms estão prenchidos corretamente
+    // 'verifica' se os forms estão prenchidos corretamente
+    final isValid = formKey.currentState!.validate();
     if (!isValid) return; // retorna nada se não for valido
 
     // mostra bolinha de carregamento

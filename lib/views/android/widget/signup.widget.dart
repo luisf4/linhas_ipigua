@@ -7,7 +7,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:linhas_ipigua/views/android/models/utils.model.dart';
 
 class SignUpWidget extends StatefulWidget {
+  //
   final Function() onClikedSignIn;
+  //
   const SignUpWidget({
     Key? key,
     required this.onClikedSignIn,
@@ -18,9 +20,11 @@ class SignUpWidget extends StatefulWidget {
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
+  //
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  // limpa as informações dentro da variavel
   @override
   void dispose() {
     _emailController.dispose();
@@ -31,13 +35,17 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // não deixa os widgets se redimencionarem
       resizeToAvoidBottomInset: false,
+      // appbar :7
       appBar: AppBar(
         title: Text("Register Page"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: SingleChildScrollView(
+        child:
+            // faz tudo que esteja dentro do widget SingleChildScrollView seja rolavel
+            SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -57,6 +65,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         labelText: 'E-mail',
                         hintText: "Enter a e-mail"),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // verifica se o e-mail é valido
                     validator: (email) =>
                         email != null && !EmailValidator.validate(email)
                             ? "Use a valid email!"
@@ -73,6 +82,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       hintText: 'Enter Password',
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // verifica se a senha pode ser ultilizado
                     validator: (value) => value != null && value.length < 6
                         ? "Min 6 characters"
                         : null),
@@ -80,7 +90,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
-                  onPressed: signUp,
+                  onPressed: signUp, // registra
                   child: Text("Register"),
                 ),
               ),
@@ -91,7 +101,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   children: [
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = widget.onClikedSignIn,
+                        ..onTap =
+                            widget.onClikedSignIn, //muda para widget signin
                       text: "Login",
                       style: TextStyle(
                           decoration: TextDecoration.underline,
@@ -108,6 +119,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   }
 
   Future signUp() async {
+    // mostra bolinha de carregamento
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -115,16 +127,17 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         child: CircularProgressIndicator(),
       ),
     );
+    // cria usuario no firebase
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
-
+      // mostra na tela o erro caso ocorra um
       Utils.showSnackBar(e.message);
     }
+    // fecha bolinha de carregamento
     Navigator.of(context).pop();
   }
 }

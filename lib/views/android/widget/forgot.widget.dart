@@ -13,12 +13,13 @@ class ForgotPasswordWidget extends StatefulWidget {
 }
 
 class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
+  //
   final formKey = GlobalKey<FormState>();
   final _emailResetController = TextEditingController();
 
+  // limpa as informações dentro da variavel
   @override
   void dispose() {
-    // limpa as informações dentro da variavel
     _emailResetController.dispose();
     super.dispose();
   }
@@ -26,8 +27,9 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset:
-          false, // não deixa os widgets se redimencionarem ??? i think so
+      // não deixa os widgets se redimencionarem ??? i think so
+      resizeToAvoidBottomInset: false,
+      // appbar :7
       appBar: AppBar(
         title: Text("Reset password"),
       ),
@@ -35,8 +37,9 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
         padding: const EdgeInsets.all(15.0),
         child: Form(
           key: formKey,
-          child: SingleChildScrollView(
-            // faz tudo que esteja dentro do widget SingleChildScrollView seja rolavel
+          child:
+              // faz tudo que esteja dentro do widget SingleChildScrollView seja rolavel
+              SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
