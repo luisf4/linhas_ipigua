@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:linhas_ipigua/views/android/widget/horarios.widget.dart';
+import 'package:linhas_ipigua/views/android/widget/profile.widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,23 +15,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page"),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(11.0),
+            child: IconButton(
+                onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Profile(),
+                      ),
+                    ),
+                icon: Icon(Icons.person, size: 25)),
+          ),
+        ],
       ),
       body: Column(
         children: [
-          Center(
-            child: Text(user.email!), // mostra o email do usuario logado
-          ),
-          ElevatedButton(
-            onPressed: () => FirebaseAuth.instance.signOut(), // desloga
-            child: Text("Deslogar"),
-          ),
-          Expanded(
+          Flexible(
             child: StreamBuilder<QuerySnapshot>(
               stream: firestore.collection('linhas').snapshots(),
               builder: (context, snapshot) {
@@ -45,16 +50,38 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (_, index) {
                     var document = documents[index];
                     return ListTile(
-                      leading: CircleAvatar(),
+                      leading: Icon(Icons.bus_alert_rounded),
                       title: Text(document['cidade']),
-                      subtitle: Text("Rs 4.30"),
-                      trailing: Text('45 MN'),
+                      subtitle: Text('Preço R\$ ' + document['preco']),
+                      trailing: Text(document['tempo'].toString() + " Minutos"),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Horarios(document['cidade']),
+                        ),
+                      ),
                     );
                   },
                 );
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: const [
+                Expanded(
+                    child: Icon(
+                  Icons.home,
+                  size: 30,
+                )),
+                Expanded(
+                    child: Icon(
+                  Icons.alarm,
+                  size: 30,
+                ))
+              ],
+            ),
+          )
         ],
       ),
     );
