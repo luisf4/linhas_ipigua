@@ -19,8 +19,8 @@ class _ProfileState extends State<Profile> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text("Perfil de usuario "),
-            Icon(
+            const Text("Perfil de usuario "),
+            const Icon(
               Icons.person,
               size: 200,
             ),
@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> {
                 FirebaseAuth.instance.signOut(),
                 Navigator.of(context).pop()
               }, // desloga
-              child: Text("Deslogar"),
+              child: const Text("Deslogar"),
             ),
           ],
         ),

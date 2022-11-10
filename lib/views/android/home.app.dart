@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:linhas_ipigua/views/android/widget/alarm.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/horarios.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/profile.widget.dart';
 
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> {
             child: StreamBuilder<QuerySnapshot>(
               stream: firestore.collection('linhas').snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) return CircularProgressIndicator();
+                if (!snapshot.hasData) {
+                  return SizedBox(child: CircularProgressIndicator());
+                }
 
                 if (snapshot.hasError) return Text(snapshot.error.toString());
 
@@ -56,7 +59,8 @@ class _HomePageState extends State<HomePage> {
                       trailing: Text(document['tempo'].toString() + " Minutos"),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Horarios(document['cidade']),
+                          builder: (context) =>
+                              Horarios(document['cidade'], document['sas']),
                         ),
                       ),
                     );
@@ -68,17 +72,29 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(
-              children: const [
+              children: [
                 Expanded(
-                    child: Icon(
-                  Icons.home,
-                  size: 30,
-                )),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.home,
+                      size: 30,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Icon(
-                  Icons.alarm,
-                  size: 30,
-                ))
+                  child: IconButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Alarmes(),
+                      ),
+                    ),
+                    icon: Icon(
+                      Icons.alarm_add,
+                      size: 30,
+                    ),
+                  ),
+                ),
               ],
             ),
           )
