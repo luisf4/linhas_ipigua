@@ -59,8 +59,7 @@ class _HomePageState extends State<HomePage> {
                       trailing: Text(document['tempo'].toString() + " Minutos"),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) =>
-                              Horarios(document['cidade'], document['sas']),
+                          builder: (context) => Horarios('a'),
                         ),
                       ),
                     );
@@ -103,3 +102,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// class Documento {
+//   final int id;
+//   final String cidade;
+//   final String preco;
+//   final int tempo;
+//   final List sas;
+//   final List sab;
+//   final List dom;
+
+//   const Documento({
+//     required this.id,
+//     required this.cidade,
+//     required this.preco,
+//     required this.tempo,
+//     required this.sas,
+//     required this.sab,
+//     required this.dom,
+//   });
+// }
