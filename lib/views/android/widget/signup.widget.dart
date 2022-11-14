@@ -20,9 +20,10 @@ class SignUpWidget extends StatefulWidget {
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
-  //
+  // input controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _password2Controller = TextEditingController();
 
   // limpa as informações dentro da variavel
   @override
@@ -30,6 +31,15 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  //Confirma se as senhas dos 2 campos são iguais
+  bool passwordConfrim() {
+    if (_passwordController.text.trim() == _password2Controller.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -88,6 +98,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         : null),
               ),
               Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                    controller: _password2Controller,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Confirm the Password',
+                      hintText: 'Enter Password again',
+                    ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // verifica se a senha pode ser ultilizado
+                    validator: (value) => value != null &&
+                            value.length < 6 &&
+                            _passwordController != _password2Controller
+                        ? "Passwords wont match"
+                        : null),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: signUp, // registra
@@ -127,17 +155,21 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         child: CircularProgressIndicator(),
       ),
     );
-    // cria usuario no firebase
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-    } on FirebaseAuthException catch (e) {
-      // mostra na tela o erro caso ocorra um
-      Utils.showSnackBar(e.message);
+
+    if (passwordConfrim()) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+      } on FirebaseAuthException catch (e) {
+        // mostra na tela o erro caso ocorra um
+        Utils.showSnackBar(e.message);
+      }
+      // fecha bolinha de carregamento
     }
-    // fecha bolinha de carregamento
     Navigator.of(context).pop();
+
+    // cria usuario no firebase
   }
 }
