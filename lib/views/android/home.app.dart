@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:linhas_ipigua/views/android/widget/alarm.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/horarios.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/profile.widget.dart';
@@ -53,20 +52,30 @@ class _HomePageState extends State<HomePage> {
                   itemCount: documents.length,
                   itemBuilder: (_, index) {
                     var document = documents[index];
-                    return ListTile(
-                      leading: Icon(Icons.bus_alert_rounded),
-                      title: Text(document['cidade']),
-                      subtitle: Text('Preço R\$ ' + document['preco']),
-                      trailing: Text(document['tempo'].toString() + " Minutos"),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Horarios(
-                              document['cidade'],
-                              document['preco'],
-                              document['tempo'],
-                              document['sas'],
-                              document['sab'],
-                              document['dom']),
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(9, 10, 9, 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26),
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                        ),
+                        child: ListTile(
+                          leading: Icon(Icons.post_add_outlined),
+                          title: Text(document['cidade']),
+                          subtitle: Text('Preço R\$ ' + document['preco']),
+                          trailing:
+                              Text(document['tempo'].toString() + " Minutos"),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Horarios(
+                                  document['cidade'],
+                                  document['preco'],
+                                  document['tempo'],
+                                  document['sas'],
+                                  document['sab'],
+                                  document['dom']),
+                            ),
+                          ),
                         ),
                       ),
                     );

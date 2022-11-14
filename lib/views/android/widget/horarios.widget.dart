@@ -32,8 +32,9 @@ class Horarios extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Segunda a Sexta-Feira"),
+                    padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
+                    child:
+                        Text("SEGUNDA A SEXTA", style: TextStyle(fontSize: 25)),
                   ),
                   SizedBox(
                     height: 50,
@@ -44,15 +45,37 @@ class Horarios extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(child: Text(sas[index])),
+                            child: Center(
+                              child: InkWell(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                                child: Container(
+                                  width: 65,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black26),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      sas[index],
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {},
+                              ),
+                            ),
                           );
                         },
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Sabado"),
+                    padding: const EdgeInsets.fromLTRB(8, 40, 8, 8),
+                    child: Text("SÁBADO", style: TextStyle(fontSize: 25)),
                   ),
                   SizedBox(
                     height: 50,
@@ -63,15 +86,37 @@ class Horarios extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(child: Text(sab[index])),
+                            child: Center(
+                              child: InkWell(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                                child: Container(
+                                  width: 65,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black26),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      sas[index],
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {},
+                              ),
+                            ),
                           );
                         },
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Domingo"),
+                    padding: const EdgeInsets.fromLTRB(8, 40, 8, 8),
+                    child: Text("DOMINGO", style: TextStyle(fontSize: 25)),
                   ),
                   SizedBox(
                     height: 50,
@@ -82,7 +127,29 @@ class Horarios extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(child: Text(dom[index])),
+                            child: Center(
+                              child: InkWell(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                                child: Container(
+                                  width: 65,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black26),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      dom[index],
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {},
+                              ),
+                            ),
                           );
                         },
                       ),

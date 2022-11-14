@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:linhas_ipigua/views/android/home.app.dart';
-import 'package:linhas_ipigua/views/android/widget/profile.widget.dart';
 import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
 
 class Alarmes extends StatefulWidget {
