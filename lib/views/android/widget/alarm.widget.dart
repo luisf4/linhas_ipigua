@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:linhas_ipigua/views/android/home.app.dart';
 import 'package:linhas_ipigua/views/android/widget/profile.widget.dart';
+import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
 
 class Alarmes extends StatefulWidget {
   const Alarmes({super.key});
@@ -16,54 +17,59 @@ class _AlarmesState extends State<Alarmes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Alarm Page"),
-        actions: [
-          Padding(
-            padding: EdgeInsets.all(11.0),
-            child: IconButton(
-                onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Profile(),
-                      ),
-                    ),
-                icon: Icon(Icons.person, size: 25)),
-          ),
-        ],
+        title: const Text('Flutter alarm clock example'),
       ),
-      body: Column(
-        children: [
-          Expanded(child: Text('Alarmes')),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.home,
-                      size: 30,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.alarm_add_sharp,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ],
+      body: Center(
+          child: Column(children: <Widget>[
+        Container(
+          margin: const EdgeInsets.all(25),
+          child: TextButton(
+            child: const Text(
+              'Create alarm at 23:59',
+              style: TextStyle(fontSize: 20.0),
             ),
-          )
-        ],
-      ),
+            onPressed: () {
+              FlutterAlarmClock.createAlarm(10, 10, title: 'banana');
+            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(25),
+          child: TextButton(
+            child: const Text(
+              'Show alarms',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            onPressed: () {
+              FlutterAlarmClock.showAlarms();
+            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(25),
+          child: TextButton(
+            child: const Text(
+              'Create timer for 42 seconds',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            onPressed: () {
+              FlutterAlarmClock.createTimer(42);
+            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(25),
+          child: TextButton(
+            child: const Text(
+              'Show Timers',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            onPressed: () {
+              FlutterAlarmClock.showTimers();
+            },
+          ),
+        ),
+      ])),
     );
   }
 }
