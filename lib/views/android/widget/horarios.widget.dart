@@ -3,7 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
 
 class Horarios extends StatelessWidget {
   final String cidade;
@@ -155,12 +154,6 @@ class Horarios extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        // Create an alarm at 23:59
-                        FlutterAlarmClock.createAlarm(15, 19);
-                      },
-                      child: Text('data'))
                 ],
               ),
             ),

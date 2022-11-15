@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, annotate_overrides, prefer_const_literals_to_create_immutables, avoid_print, use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +25,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _password2Controller = TextEditingController();
+  final _nameController = TextEditingController();
 
   // limpa as informações dentro da variavel
   @override
@@ -42,6 +44,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     }
   }
 
+  bool nameConfrim() {
+    if (_nameController.text.trim() != '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,12 +61,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       appBar: AppBar(
         title: Text("Register Page"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child:
-            // faz tudo que esteja dentro do widget SingleChildScrollView seja rolavel
-            SingleChildScrollView(
-          child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child:
+              // faz tudo que esteja dentro do widget SingleChildScrollView seja rolavel
+              Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -65,6 +75,21 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   style: TextStyle(fontSize: 40, color: Colors.black54),
                 ),
               ),
+
+              // Name Fild
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                  controller: _nameController,
+                  cursorColor: Colors.white,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Name',
+                      hintText: "Enter your name"),
+                ),
+              ),
+
+              // Email fild
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
@@ -81,6 +106,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             ? "Use a valid email!"
                             : null),
               ),
+
+              // Password fild
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
@@ -97,24 +124,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         ? "Min 6 characters"
                         : null),
               ),
+
+              // Password2 Fild
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
-                    controller: _password2Controller,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Confirm the Password',
-                      hintText: 'Enter Password again',
-                    ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    // verifica se a senha pode ser ultilizado
-                    validator: (value) => value != null &&
-                            value.length < 6 &&
-                            _passwordController != _password2Controller
-                        ? "Passwords wont match"
-                        : null),
+                  controller: _password2Controller,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Confirm the Password',
+                    hintText: 'Enter Password again',
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // verifica se a senha pode ser ultilizado
+                ),
               ),
+
+              // Button Register
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
@@ -122,6 +149,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   child: Text("Register"),
                 ),
               ),
+
+              // Login stuff
               RichText(
                 text: TextSpan(
                   style: TextStyle(color: Colors.amber, fontSize: 15),
@@ -156,20 +185,31 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       ),
     );
 
-    if (passwordConfrim()) {
+    // verifica se as senhas são iguais
+    if (passwordConfrim() && nameConfrim()) {
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        // cria usuario no firebase
+        final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+        // fecha bolinha de carregamento
+        Navigator.of(context).pop();
+
+        await FirebaseFirestore.instance.collection('users').add(
+            {'userUid': user.user!.uid, 'name': _nameController.text.trim()});
+        print(user.user!.uid);
       } on FirebaseAuthException catch (e) {
         // mostra na tela o erro caso ocorra um
         Utils.showSnackBar(e.message);
+        Navigator.of(context).pop();
       }
-      // fecha bolinha de carregamento
+    } else if (passwordConfrim() && !nameConfrim()) {
+      Utils.showSnackBar('Enter a name!');
+      Navigator.of(context).pop();
+    } else {
+      Utils.showSnackBar('Passwords won\'t metch');
+      Navigator.of(context).pop();
     }
-    Navigator.of(context).pop();
-
-    // cria usuario no firebase
   }
 }
