@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:linhas_ipigua/views/android/widget/setAlarm.widget.dart';
 
 class Horarios extends StatelessWidget {
   final String cidade;
@@ -64,7 +65,12 @@ class Horarios extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        SetAlarm(horario: sas[index]),
+                                  ),
+                                ),
                               ),
                             ),
                           );
@@ -105,7 +111,12 @@ class Horarios extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        SetAlarm(horario: sab[index]),
+                                  ),
+                                ),
                               ),
                             ),
                           );
@@ -146,7 +157,12 @@ class Horarios extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        SetAlarm(horario: dom[index]),
+                                  ),
+                                ),
                               ),
                             ),
                           );

@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:linhas_ipigua/views/android/models/notificationn.moldel.dart';
 
 class SetAlarm extends StatelessWidget {
-  const SetAlarm({super.key});
+  final String horario;
+  const SetAlarm({super.key, required this.horario});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +15,13 @@ class SetAlarm extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text('data'),
+          Text(horario),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => NotificationApi.showNotification(
+              title: "banana",
+              body: "fafofafafafa",
+              payload: 'danone.bas',
+            ),
             child: Text("Set Alarm"),
           ),
         ],
