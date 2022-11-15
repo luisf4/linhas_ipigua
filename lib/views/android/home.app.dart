@@ -6,6 +6,9 @@ import 'package:linhas_ipigua/views/android/widget/alarm.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/horarios.widget.dart';
 import 'package:linhas_ipigua/views/android/widget/profile.widget.dart';
 
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -14,6 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //time zone initialization
+  @override
+  void initState() {
+    super.initState();
+    tz.initializeTimeZones();
+  }
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override

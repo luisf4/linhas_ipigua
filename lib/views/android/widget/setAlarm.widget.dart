@@ -14,15 +14,36 @@ class SetAlarm extends StatelessWidget {
         title: Text("Set alarm"),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(horario),
-          ElevatedButton(
-            onPressed: () => NotificationApi.showNotification(
-              title: "banana",
-              body: "fafofafafafa",
-              payload: 'danone.bas',
+          GestureDetector(
+            onTap: () {
+              NotificationService().cancelAllNotifications();
+            },
+            child: Container(
+              height: 40,
+              width: 200,
+              color: Colors.red,
+              child: Center(
+                child: Text(
+                  "Cancel All Notifications",
+                ),
+              ),
             ),
-            child: Text("Set Alarm"),
+          ),
+          GestureDetector(
+            onTap: () {
+              NotificationService().showNotification(1, "title", "body", 10);
+            },
+            child: Container(
+              height: 40,
+              width: 200,
+              color: Colors.green,
+              child: Center(
+                child: Text("Show Notification"),
+              ),
+            ),
           ),
         ],
       ),
