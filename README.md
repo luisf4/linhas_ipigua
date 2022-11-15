@@ -8,6 +8,9 @@
 ## Todo List
 
 + [x] Fazer a connecção ao firebase
-+ [ ] Criar tela de registro e login 
-+ [ ] Fazer Backend do login 
-+ [ ] Criar uma esquematização do banco de dados
++ [x] Criar tela de registro e login 
++ [x] Fazer Backend do login 
++ [x] Criar uma esquematização do banco de dados
++ [ ] Implementar alarme 
++ [ ] Salvar alarme no firebase
++ [ ] Deixar loyout apresentavel
