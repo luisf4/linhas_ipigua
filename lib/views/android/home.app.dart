@@ -51,7 +51,8 @@ class _HomePageState extends State<HomePage> {
               stream: firestore.collection('linhas').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return SizedBox(child: CircularProgressIndicator());
+                  return SizedBox(
+                      child: Center(child: CircularProgressIndicator()));
                 }
 
                 if (snapshot.hasError) return Text(snapshot.error.toString());

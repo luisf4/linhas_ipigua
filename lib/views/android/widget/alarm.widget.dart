@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:linhas_ipigua/views/android/widget/editAlarm.widget.dart';
 
 class Alarmes extends StatefulWidget {
   const Alarmes({super.key});
@@ -56,7 +57,13 @@ class _AlarmesState extends State<Alarmes> {
                         ),
                         trailing: InkWell(
                           child: Icon(Icons.edit),
-                          onTap: () {},
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditAlarm(
+                                idDocumento: document['id'],
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     },

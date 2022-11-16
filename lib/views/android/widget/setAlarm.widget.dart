@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:linhas_ipigua/views/android/models/notificationn.moldel.dart';
+import 'package:uuid/uuid.dart';
 
 class SetAlarm extends StatelessWidget {
   final String horario;
@@ -46,12 +47,15 @@ class SetAlarm extends StatelessWidget {
                   differenceNew = difference;
                 }
 
+                var uid = Uuid().v1();
+
                 // pegar a diferença e adicionar a firebase
                 FirebaseFirestore.instance
                     .collection('users')
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('alarms')
-                    .add({
+                    .doc(uid.toString())
+                    .set({
                   'id': uuid,
                   'title': 'Ônibus',
                   'body': 'O ônibus sairá as $horario',

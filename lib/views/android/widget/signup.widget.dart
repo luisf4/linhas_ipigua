@@ -193,8 +193,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        // fecha bolinha de carregamento
         Navigator.of(context).pop();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({'name': _nameController.text.toString()});
+        // fecha bolinha de carregamento
       } on FirebaseAuthException catch (e) {
         // mostra na tela o erro caso ocorra um
         Utils.showSnackBar(e.message);
