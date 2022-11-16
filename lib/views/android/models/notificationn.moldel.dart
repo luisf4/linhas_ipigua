@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -16,8 +18,9 @@ class NotificationService {
   NotificationService._internal();
 
   Future<void> initNotification() async {
+    // ignore: prefer_const_declarations
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@drawable/ipigua');
+        const AndroidInitializationSettings('@drawable/ipigua');
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
@@ -46,7 +49,7 @@ class NotificationService {
     );
   }
 
-  Future<void> cancelAllNotifications() async {
-    await flutterLocalNotificationsPlugin.cancelAll();
+  Future<void> cancelAllNotifications(id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
   }
 }

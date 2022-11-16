@@ -189,16 +189,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     if (passwordConfrim() && nameConfrim()) {
       try {
         // cria usuario no firebase
-        final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
         // fecha bolinha de carregamento
         Navigator.of(context).pop();
-
-        await FirebaseFirestore.instance.collection('users').add(
-            {'userUid': user.user!.uid, 'name': _nameController.text.trim()});
-        print(user.user!.uid);
       } on FirebaseAuthException catch (e) {
         // mostra na tela o erro caso ocorra um
         Utils.showSnackBar(e.message);
