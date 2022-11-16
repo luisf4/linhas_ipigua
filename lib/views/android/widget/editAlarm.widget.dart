@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
+import '../models/utils.model.dart';
 
 class EditAlarm extends StatefulWidget {
   final int idDocumento;
@@ -25,6 +27,16 @@ class _EditAlarmState extends State<EditAlarm> {
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('alarms');
+
+  bool fildConfirm() {
+    if (_bodyController.text == '') {
+      return false;
+    } else if (_titleController.text == '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,7 @@ class _EditAlarmState extends State<EditAlarm> {
                       children: [
                         Text(document['body']),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(15.0),
                           child: TextFormField(
                             controller: _titleController,
                             obscureText: true,
@@ -85,6 +97,38 @@ class _EditAlarmState extends State<EditAlarm> {
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  child: Icon(
+                                    Icons.done,
+                                    size: 40,
+                                  ),
+                                  onTap: () {
+                                    if (fildConfirm()) {
+                                      Utils.showSnackBar('Fufill the filds');
+                                    } else {}
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: InkWell(
+                                  child: Icon(
+                                    Icons.delete,
+                                    size: 40,
+                                  ),
+                                  onTap: () {
+                                    print('');
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       ],
                     );
                   },

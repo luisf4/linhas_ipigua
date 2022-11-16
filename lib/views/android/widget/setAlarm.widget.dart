@@ -60,7 +60,7 @@ class SetAlarm extends StatelessWidget {
                   'title': 'Ônibus',
                   'body': 'O ônibus sairá as $horario',
                   'date': DateTime.now()
-                      .add(Duration(seconds: differenceNew))
+                      .add(Duration(milliseconds: differenceNew))
                       .toString()
                 });
 
