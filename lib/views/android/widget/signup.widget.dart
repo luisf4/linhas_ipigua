@@ -184,6 +184,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         child: CircularProgressIndicator(),
       ),
     );
+    Navigator.of(context).pop();
 
     // verifica se as senhas são iguais
     if (passwordConfrim() && nameConfrim()) {
@@ -193,7 +194,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        Navigator.of(context).pop();
         await FirebaseFirestore.instance
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)

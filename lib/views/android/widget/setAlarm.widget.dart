@@ -30,12 +30,16 @@ class SetAlarm extends StatelessWidget {
                     .difference(
                         DateTime.fromMillisecondsSinceEpoch(1640979000000))
                     .inSeconds;
+
+                // Converte e trata os dados do banco
                 final String horarioTratado = horario.replaceAll(' ', '');
                 final int differenceNew;
                 final String date = DateTime.now().toString();
                 final String old =
                     date[11] + date[12] + date[13] + date[14] + date[15];
                 final String novo = date.replaceAll(old, horarioTratado.trim());
+
+                // calcula a diferença entre horario de agora para o horario que o alarme irá tocar
                 final difference =
                     DateTime.parse(novo).difference(DateTime.now()).inSeconds;
                 if (difference < 0) {
@@ -47,6 +51,7 @@ class SetAlarm extends StatelessWidget {
                   differenceNew = difference;
                 }
 
+                // random id para usar no .doc()
                 var uid = Uuid().v1();
 
                 // pegar a diferença e adicionar a firebase
@@ -56,6 +61,7 @@ class SetAlarm extends StatelessWidget {
                     .collection('alarms')
                     .doc(uid.toString())
                     .set({
+                  'horario': horario,
                   'id': uuid,
                   'title': 'Ônibus',
                   'body': 'O ônibus sairá as $horario',

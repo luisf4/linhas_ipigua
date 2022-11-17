@@ -2,10 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:linhas_ipigua/views/android/models/notificationn.moldel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 import '../models/utils.model.dart';
 
@@ -23,10 +21,6 @@ class _EditAlarmState extends State<EditAlarm> {
   final _bodyController = TextEditingController();
 
   // Firebase
-  final firebase = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('alarms');
 
   bool fildConfirm() {
     if (_bodyController.text == '') {
@@ -37,6 +31,11 @@ class _EditAlarmState extends State<EditAlarm> {
       return true;
     }
   }
+
+  final firebase = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('alarms');
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +75,6 @@ class _EditAlarmState extends State<EditAlarm> {
                           padding: const EdgeInsets.all(15.0),
                           child: TextFormField(
                             controller: _titleController,
-                            obscureText: true,
-                            // initialValue: document['title'],
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Title',
@@ -89,7 +86,6 @@ class _EditAlarmState extends State<EditAlarm> {
                           padding: const EdgeInsets.all(10.0),
                           child: TextFormField(
                             controller: _bodyController,
-                            obscureText: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Body',
@@ -100,8 +96,8 @@ class _EditAlarmState extends State<EditAlarm> {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Row(
-                            // ignore: prefer_const_literals_to_create_immutables
                             children: [
+                              // EDIT BUTTON
                               Expanded(
                                 child: InkWell(
                                   child: Icon(
@@ -110,11 +106,63 @@ class _EditAlarmState extends State<EditAlarm> {
                                   ),
                                   onTap: () {
                                     if (fildConfirm()) {
+                                      var uuid = DateTime.now()
+                                          .difference(DateTime
+                                              .fromMillisecondsSinceEpoch(
+                                                  1640979000000))
+                                          .inSeconds;
+
+                                      NotificationService()
+                                          .cancelAllNotifications(
+                                              document['id']);
+                                      final differenceNew;
+                                      final difference =
+                                          DateTime.parse(document['date'])
+                                              .difference(DateTime.now())
+                                              .inSeconds;
+                                      if (difference < 0) {
+                                        differenceNew =
+                                            DateTime.parse(document['date'])
+                                                .add(Duration(days: 1))
+                                                .difference(DateTime.now())
+                                                .inSeconds;
+                                      } else {
+                                        differenceNew = difference;
+                                      }
+
+                                      NotificationService().showNotification(
+                                        uuid,
+                                        _titleController.text.trim(),
+                                        _bodyController.text.trim(),
+                                        differenceNew,
+                                      );
+
+                                      FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser!.uid)
+                                          .collection('alarms')
+                                          .doc(document.id)
+                                          .set({
+                                        'id': uuid,
+                                        'title': _titleController.text.trim() +
+                                            ' Alarme:' +
+                                            document['horario'],
+                                        'body': _bodyController.text.trim(),
+                                        'date': DateTime.now()
+                                            .add(Duration(
+                                                milliseconds: differenceNew))
+                                            .toString()
+                                      });
+                                      Navigator.of(context).pop();
+                                    } else {
                                       Utils.showSnackBar('Fufill the filds');
-                                    } else {}
+                                    }
                                   },
                                 ),
                               ),
+
+                              // DELETE BUTTOn
                               Expanded(
                                 child: InkWell(
                                   child: Icon(
@@ -122,7 +170,10 @@ class _EditAlarmState extends State<EditAlarm> {
                                     size: 40,
                                   ),
                                   onTap: () {
-                                    print('');
+                                    NotificationService()
+                                        .cancelAllNotifications(document['id']);
+                                    deleteData(document.id.toString());
+                                    Navigator.of(context).pop();
                                   },
                                 ),
                               )
@@ -139,5 +190,13 @@ class _EditAlarmState extends State<EditAlarm> {
         ],
       ),
     );
+  }
+
+  Future deleteData(String id) async {
+    try {
+      await firebase.doc(id).delete();
+    } catch (e) {
+      return false;
+    }
   }
 }
