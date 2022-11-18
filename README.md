@@ -11,6 +11,6 @@
 + [x] Criar tela de registro e login 
 + [x] Fazer Backend do login 
 + [x] Criar uma esquematização do banco de dados
-+ [ ] Implementar alarme 
-+ [ ] Salvar alarme no firebase
++ [x] Implementar alarme 
++ [x] Salvar alarme no firebase
 + [ ] Deixar loyout apresentavel
