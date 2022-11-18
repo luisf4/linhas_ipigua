@@ -52,7 +52,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Login",
-                    style: TextStyle(fontSize: 40, color: Colors.black54),
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
                   ),
                 ),
                 Padding(
