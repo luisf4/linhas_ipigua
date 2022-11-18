@@ -45,22 +45,26 @@ class _AlarmesState extends State<Alarmes> {
                     itemCount: documents.length,
                     itemBuilder: (_, index) {
                       var document = documents[index];
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: Text(
-                            document['title'],
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: Text(
+                              document['title'],
+                            ),
                           ),
-                        ),
-                        subtitle: Text(
-                          document['body'],
-                        ),
-                        trailing: InkWell(
-                          child: Icon(Icons.edit),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => EditAlarm(
-                                idDocumento: document['id'],
+                          subtitle: Text(
+                            document['body'],
+                          ),
+                          leading: Icon(Icons.alarm),
+                          trailing: InkWell(
+                            child: Icon(Icons.edit),
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditAlarm(
+                                  idDocumento: document['id'],
+                                ),
                               ),
                             ),
                           ),

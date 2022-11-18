@@ -48,7 +48,13 @@ class _EditAlarmState extends State<EditAlarm> {
       // DADOS DO FIREBASE JUNTAMENTE COM O ALARME E JOGAR PARA OUTRA TELA
       body: Column(
         children: [
-          Text('aaaaaaa'),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Aqui você poderá adicionar descrição no alarme',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
           Flexible(
             child: StreamBuilder<QuerySnapshot>(
               stream: firebase
@@ -70,26 +76,25 @@ class _EditAlarmState extends State<EditAlarm> {
                     var document = documents[index];
                     return Column(
                       children: [
-                        Text(document['body']),
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: TextFormField(
                             controller: _titleController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Title',
-                              hintText: 'Title',
+                              labelText: 'Título',
+                              hintText: 'Título',
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(15.0),
                           child: TextFormField(
                             controller: _bodyController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Body',
-                              hintText: 'Body',
+                              labelText: 'Descrição',
+                              hintText: 'Descrição',
                             ),
                           ),
                         ),
@@ -102,62 +107,10 @@ class _EditAlarmState extends State<EditAlarm> {
                                 child: InkWell(
                                   child: Icon(
                                     Icons.done,
-                                    size: 40,
+                                    size: 30,
                                   ),
                                   onTap: () {
-                                    if (fildConfirm()) {
-                                      var uuid = DateTime.now()
-                                          .difference(DateTime
-                                              .fromMillisecondsSinceEpoch(
-                                                  1640979000000))
-                                          .inSeconds;
-
-                                      NotificationService()
-                                          .cancelAllNotifications(
-                                              document['id']);
-                                      final differenceNew;
-                                      final difference =
-                                          DateTime.parse(document['date'])
-                                              .difference(DateTime.now())
-                                              .inSeconds;
-                                      if (difference < 0) {
-                                        differenceNew =
-                                            DateTime.parse(document['date'])
-                                                .add(Duration(days: 1))
-                                                .difference(DateTime.now())
-                                                .inSeconds;
-                                      } else {
-                                        differenceNew = difference;
-                                      }
-
-                                      NotificationService().showNotification(
-                                        uuid,
-                                        _titleController.text.trim(),
-                                        _bodyController.text.trim(),
-                                        differenceNew,
-                                      );
-
-                                      FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
-                                          .collection('alarms')
-                                          .doc(document.id)
-                                          .set({
-                                        'id': uuid,
-                                        'title': _titleController.text.trim() +
-                                            ' Alarme:' +
-                                            document['horario'],
-                                        'body': _bodyController.text.trim(),
-                                        'date': DateTime.now()
-                                            .add(Duration(
-                                                milliseconds: differenceNew))
-                                            .toString()
-                                      });
-                                      Navigator.of(context).pop();
-                                    } else {
-                                      Utils.showSnackBar('Fufill the filds');
-                                    }
+                                    remakeAlarm(document);
                                   },
                                 ),
                               ),
@@ -167,7 +120,7 @@ class _EditAlarmState extends State<EditAlarm> {
                                 child: InkWell(
                                   child: Icon(
                                     Icons.delete,
-                                    size: 40,
+                                    size: 30,
                                   ),
                                   onTap: () {
                                     NotificationService()
@@ -190,6 +143,51 @@ class _EditAlarmState extends State<EditAlarm> {
         ],
       ),
     );
+  }
+
+  void remakeAlarm(document) {
+    if (fildConfirm()) {
+      var uuid = DateTime.now()
+          .difference(DateTime.fromMillisecondsSinceEpoch(1640979000000))
+          .inSeconds;
+
+      NotificationService().cancelAllNotifications(document['id']);
+      final differenceNew;
+      final difference =
+          DateTime.parse(document['date']).difference(DateTime.now()).inSeconds;
+      if (difference < 0) {
+        differenceNew = DateTime.parse(document['date'])
+            .add(Duration(days: 1))
+            .difference(DateTime.now())
+            .inSeconds;
+      } else {
+        differenceNew = difference;
+      }
+
+      NotificationService().showNotification(
+        uuid,
+        _titleController.text.trim(),
+        _bodyController.text.trim(),
+        differenceNew,
+      );
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('alarms')
+          .doc(document.id)
+          .set({
+        'id': uuid,
+        'title': _titleController.text.trim(),
+        'body': _bodyController.text.trim() + '   ' + document['horario'],
+        'horario': document['horario'],
+        'date':
+            DateTime.now().add(Duration(milliseconds: differenceNew)).toString()
+      });
+      Navigator.of(context).pop();
+    } else {
+      Utils.showSnackBar('Prencha todos os campos');
+    }
   }
 
   Future deleteData(String id) async {

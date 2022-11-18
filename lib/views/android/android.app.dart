@@ -9,6 +9,7 @@ class AndroidApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: Utils.messengerKey, // key para menssagens de erro
       home: LoginPage(), // pagina inicial
 

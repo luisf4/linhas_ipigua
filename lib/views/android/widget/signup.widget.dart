@@ -177,14 +177,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   Future signUp() async {
     // mostra bolinha de carregamento
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-    Navigator.of(context).pop();
+
+    // showDialog(
+    //   context: context,
+    //   barrierDismissible: false,
+    //   builder: (context) => Center(
+    //     child: CircularProgressIndicator(),
+    //   ),
+    // );
 
     // verifica se as senhas são iguais
     if (passwordConfrim() && nameConfrim()) {
@@ -194,6 +194,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+
+        // Navigator.of(context).pop();
+
         await FirebaseFirestore.instance
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -202,14 +205,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       } on FirebaseAuthException catch (e) {
         // mostra na tela o erro caso ocorra um
         Utils.showSnackBar(e.message);
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
       }
     } else if (passwordConfrim() && !nameConfrim()) {
       Utils.showSnackBar('Enter a name!');
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     } else {
       Utils.showSnackBar('Passwords won\'t metch');
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     }
   }
 }

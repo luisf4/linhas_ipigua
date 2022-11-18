@@ -13,13 +13,14 @@ class SetAlarm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Set alarm"),
+        title: Text("Setar Alarme"),
       ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("O ônibus irá partir as"),
             Text(horario),
             SizedBox(
               height: 50,
@@ -42,6 +43,7 @@ class SetAlarm extends StatelessWidget {
                 // calcula a diferença entre horario de agora para o horario que o alarme irá tocar
                 final difference =
                     DateTime.parse(novo).difference(DateTime.now()).inSeconds;
+
                 if (difference < 0) {
                   differenceNew = DateTime.parse(novo)
                       .add(Duration(days: 1))
@@ -51,6 +53,9 @@ class SetAlarm extends StatelessWidget {
                   differenceNew = difference;
                 }
 
+                print(old);
+                print(difference);
+                print(differenceNew / 60 / 60);
                 // random id para usar no .doc()
                 var uid = Uuid().v1();
 
@@ -76,8 +81,14 @@ class SetAlarm extends StatelessWidget {
                   "O ônibus sairá as $horario",
                   differenceNew,
                 );
+                Navigator.of(context).pop();
               },
-              child: Text("Set a Alarm to $horario"),
+              child: SizedBox(
+                  width: 140,
+                  child: Row(children: const [
+                    Expanded(child: Icon(Icons.alarm_add)),
+                    Text("Adicionar Alarme")
+                  ])),
             )
           ],
         ),

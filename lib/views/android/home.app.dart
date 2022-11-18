@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     icon: Icon(
-                      Icons.alarm_add,
+                      Icons.alarm,
                       size: 30,
                     ),
                   ),

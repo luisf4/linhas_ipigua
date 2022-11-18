@@ -105,7 +105,7 @@ class Horarios extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      sas[index],
+                                      sab[index],
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.black),
                                     ),

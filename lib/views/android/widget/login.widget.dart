@@ -157,11 +157,11 @@ class _LoginWidgetState extends State<LoginWidget> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       // se não conseguir validar retorna o erro na tela
       Utils.showSnackBar(e.message);
     }
     // fecha a bolinha de carregamento
-    Navigator.of(context).pop();
   }
 }
