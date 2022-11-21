@@ -41,7 +41,7 @@ class Horarios extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black26),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -97,7 +97,7 @@ class Horarios extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black26),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -153,7 +153,7 @@ class Horarios extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black26),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

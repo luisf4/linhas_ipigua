@@ -96,32 +96,41 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.home,
-                      size: 30,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Alarmes(),
+            padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black26),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.home,
+                          size: 30,
+                        ),
                       ),
                     ),
-                    icon: Icon(
-                      Icons.alarm,
-                      size: 30,
+                    Expanded(
+                      child: IconButton(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Alarmes(),
+                          ),
+                        ),
+                        icon: Icon(
+                          Icons.alarm,
+                          size: 30,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           )
         ],

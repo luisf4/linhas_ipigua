@@ -8,7 +8,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:linhas_ipigua/views/android/models/utils.model.dart';
 import 'package:linhas_ipigua/views/android/android.app.dart';
 
-
 class SignUpWidget extends StatefulWidget {
   //
   final Function() onClikedSignIn;
@@ -74,7 +73,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "Register",
-                  style: TextStyle(fontSize: 40, color: Colors.black54),
+                  style: TextStyle(fontSize: 40),
                 ),
               ),
 
@@ -217,6 +216,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       // Navigator.of(context).pop();
     }
 
-    navigatorKey.currentState!.popUntil((route) =>route.isFirst);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
