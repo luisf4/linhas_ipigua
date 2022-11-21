@@ -28,155 +28,183 @@ class Horarios extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            Flexible(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
-                    child:
-                        Text("SEGUNDA A SEXTA", style: TextStyle(fontSize: 25)),
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 2,
-                        ),
-                        itemCount: sas.length,
-                        itemBuilder: (context, index) {
-                          return Center(
-                            child: InkWell(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              child: Container(
-                                width: 65,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black26),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    sas[index],
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                              onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      SetAlarm(horario: sas[index]),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+            Expanded(
+              child: SingleChildScrollView(
+                child: Flexible(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                        child: Text("SEGUNDA A SEXTA",
+                            style: TextStyle(fontSize: 25)),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 40, 8, 8),
-                    child: Text("SÁBADO", style: TextStyle(fontSize: 25)),
-                  ),
-                  SizedBox(
-                    height: 100,
-                    child: Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 2,
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
-                        itemCount: sab.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: InkWell(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                                child: Container(
-                                  width: 65,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black26),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      sab[index],
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.black),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 250,
+                            child: Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  childAspectRatio: 2,
+                                ),
+                                itemCount: sas.length,
+                                itemBuilder: (context, index) {
+                                  return Center(
+                                    child: InkWell(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      child: Container(
+                                        width: 65,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.black87),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            sas[index],
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SetAlarm(horario: sas[index]),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        SetAlarm(horario: sab[index]),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 40, 8, 8),
-                    child: Text("DOMINGO", style: TextStyle(fontSize: 25)),
-                  ),
-                  SizedBox(
-                    height: 100,
-                    child: Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 2,
+                          ),
                         ),
-                        itemCount: dom.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: InkWell(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                                child: Container(
-                                  width: 65,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black26),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      dom[index],
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.black),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 40, 8, 8),
+                        child: Text("SÁBADO", style: TextStyle(fontSize: 25)),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 250,
+                            child: Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  childAspectRatio: 2,
+                                ),
+                                itemCount: sab.length,
+                                itemBuilder: (context, index) {
+                                  return Center(
+                                    child: InkWell(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      child: Container(
+                                        width: 65,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.black87),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            sab[index],
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SetAlarm(horario: sab[index]),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        SetAlarm(horario: dom[index]),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        },
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 40, 8, 8),
+                        child: Text("DOMINGO", style: TextStyle(fontSize: 25)),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 250,
+                            child: Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  childAspectRatio: 2,
+                                ),
+                                itemCount: dom.length,
+                                itemBuilder: (context, index) {
+                                  return Center(
+                                    child: InkWell(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      child: Container(
+                                        width: 65,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.black87),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            dom[index],
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SetAlarm(horario: dom[index]),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ],

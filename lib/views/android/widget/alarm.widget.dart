@@ -24,58 +24,74 @@ class _AlarmesState extends State<Alarmes> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
-            Flexible(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('alarms')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return SizedBox(child: CircularProgressIndicator());
-                  }
+          child: Column(
+            children: [
+              Flexible(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('alarms')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return SizedBox(child: CircularProgressIndicator());
+                    }
 
-                  if (snapshot.hasError) return Text(snapshot.error.toString());
+                    if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
 
-                  var documents = snapshot.data!.docs;
+                    var documents = snapshot.data!.docs;
 
-                  return ListView.builder(
-                    itemCount: documents.length,
-                    itemBuilder: (_, index) {
-                      var document = documents[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          title: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Text(
-                              document['title'],
+                    return ListView.builder(
+                      itemCount: documents.length,
+                      itemBuilder: (_, index) {
+                        var document = documents[index];
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black26),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
                             ),
-                          ),
-                          subtitle: Text(
-                            document['body'],
-                          ),
-                          leading: Icon(Icons.alarm),
-                          trailing: InkWell(
-                            child: Icon(Icons.edit),
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EditAlarm(
-                                  idDocumento: document['id'],
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                title: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  child: Text(
+                                    document['title'],
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  document['body'],
+                                ),
+                                leading: Icon(Icons.alarm),
+                                trailing: InkWell(
+                                  child: Icon(Icons.edit),
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => EditAlarm(
+                                        idDocumento: document['id'],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

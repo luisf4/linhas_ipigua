@@ -53,9 +53,6 @@ class SetAlarm extends StatelessWidget {
                   differenceNew = difference;
                 }
 
-                print(old);
-                print(difference);
-                print(differenceNew / 60 / 60);
                 // random id para usar no .doc()
                 var uid = Uuid().v1();
 

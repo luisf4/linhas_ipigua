@@ -1,15 +1,14 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:linhas_ipigua/views/android/models/notificationn.moldel.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 import '../models/utils.model.dart';
 
 class EditAlarm extends StatefulWidget {
   final int idDocumento;
-  EditAlarm({super.key, required this.idDocumento});
+  const EditAlarm({super.key, required this.idDocumento});
 
   @override
   State<EditAlarm> createState() => _EditAlarmState();
@@ -152,7 +151,7 @@ class _EditAlarmState extends State<EditAlarm> {
           .inSeconds;
 
       NotificationService().cancelAllNotifications(document['id']);
-      final differenceNew;
+      final int differenceNew;
       final difference =
           DateTime.parse(document['date']).difference(DateTime.now()).inSeconds;
       if (difference < 0) {
@@ -198,3 +197,5 @@ class _EditAlarmState extends State<EditAlarm> {
     }
   }
 }
+
+

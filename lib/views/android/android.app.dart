@@ -5,10 +5,16 @@ import 'package:linhas_ipigua/views/android/home.app.dart';
 import 'package:linhas_ipigua/views/android/login.app.dart';
 import 'package:linhas_ipigua/views/android/models/utils.model.dart';
 
+
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class AndroidApp extends StatelessWidget {
+
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         brightness: Brightness.light,
         /* light theme settings */

@@ -6,6 +6,8 @@ import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:linhas_ipigua/views/android/models/utils.model.dart';
+import 'package:linhas_ipigua/views/android/android.app.dart';
+
 
 class SignUpWidget extends StatefulWidget {
   //
@@ -178,13 +180,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   Future signUp() async {
     // mostra bolinha de carregamento
 
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder: (context) => Center(
-    //     child: CircularProgressIndicator(),
-    //   ),
-    // );
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
 
     // verifica se as senhas são iguais
     if (passwordConfrim() && nameConfrim()) {
@@ -214,5 +216,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       Utils.showSnackBar('Passwords won\'t metch');
       // Navigator.of(context).pop();
     }
+
+    navigatorKey.currentState!.popUntil((route) =>route.isFirst);
   }
 }
