@@ -109,7 +109,15 @@ class _EditAlarmState extends State<EditAlarm> {
                                     size: 30,
                                   ),
                                   onTap: () {
-                                    remakeAlarm(document);
+                                    if (_bodyController.text.trim() != '' &&
+                                        _titleController.text.trim() != '') {
+                                      remakeAlarm(document);
+
+                                      Utils.showSnackBarGreen(
+                                          'Alarme Atualizado!');
+                                    } else {
+                                      Utils.showSnackBar('Prencha os campos');
+                                    }
                                   },
                                 ),
                               ),
@@ -123,9 +131,10 @@ class _EditAlarmState extends State<EditAlarm> {
                                   ),
                                   onTap: () {
                                     NotificationService()
-                                        .cancelAllNotifications(document['id']);
+                                        .cancelNotifications(document['id']);
                                     deleteData(document.id.toString());
                                     Navigator.of(context).pop();
+                                    Utils.showSnackBarGreen('Alarme Deletado!');
                                   },
                                 ),
                               )
@@ -150,7 +159,7 @@ class _EditAlarmState extends State<EditAlarm> {
           .difference(DateTime.fromMillisecondsSinceEpoch(1640979000000))
           .inSeconds;
 
-      NotificationService().cancelAllNotifications(document['id']);
+      NotificationService().cancelNotifications(document['id']);
       final int differenceNew;
       final difference =
           DateTime.parse(document['date']).difference(DateTime.now()).inSeconds;
@@ -197,5 +206,3 @@ class _EditAlarmState extends State<EditAlarm> {
     }
   }
 }
-
-

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/notificationn.moldel.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -33,6 +35,7 @@ class _ProfileState extends State<Profile> {
             ),
             ElevatedButton(
               onPressed: () => {
+                NotificationService().cancelAllNotifications(),
                 FirebaseAuth.instance.signOut(),
                 Navigator.of(context).pop()
               }, // desloga

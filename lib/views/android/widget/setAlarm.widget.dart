@@ -5,9 +5,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:linhas_ipigua/views/android/models/notificationn.moldel.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/utils.model.dart';
+
 class SetAlarm extends StatelessWidget {
   final String horario;
-  const SetAlarm({super.key, required this.horario});
+  final String cidade;
+
+  const SetAlarm({
+    super.key,
+    required this.horario,
+    required this.cidade,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +49,10 @@ class SetAlarm extends StatelessWidget {
                 final String novo = date.replaceAll(old, horarioTratado.trim());
 
                 // calcula a diferença entre horario de agora para o horario que o alarme irá tocar
-                final difference =
-                    DateTime.parse(novo).difference(DateTime.now()).inSeconds;
+                final difference = (DateTime.parse(novo)
+                        .difference(DateTime.now())
+                        .inSeconds) -
+                    600;
 
                 if (difference < 0) {
                   differenceNew = DateTime.parse(novo)
@@ -65,7 +75,7 @@ class SetAlarm extends StatelessWidget {
                     .set({
                   'horario': horario,
                   'id': uuid,
-                  'title': 'Ônibus',
+                  'title': cidade,
                   'body': 'O ônibus sairá as $horario',
                   'date': DateTime.now()
                       .add(Duration(milliseconds: differenceNew))
@@ -79,14 +89,19 @@ class SetAlarm extends StatelessWidget {
                   differenceNew,
                 );
                 Navigator.of(context).pop();
+                Utils.showSnackBarGreen('Alarme adicionado!');
               },
               child: SizedBox(
-                  width: 140,
-                  child: Row(children: const [
+                width: 140,
+                child: Row(
+                  children: const [
                     Expanded(child: Icon(Icons.alarm_add)),
                     Text("Adicionar Alarme")
-                  ])),
-            )
+                  ],
+                ),
+              ),
+            ),
+            Text('O alarme irá tocar 10 minutos antes do ônibus partir'),
           ],
         ),
       ),

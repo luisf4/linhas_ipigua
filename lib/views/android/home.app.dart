@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.fromLTRB(9, 10, 9, 5),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black26),
+                          border: Border.all(color: Colors.white30),
                           borderRadius: BorderRadius.all(Radius.circular(25)),
                         ),
                         child: ListTile(
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black26),
+                border: Border.all(color: Colors.black, width: 6),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: Padding(

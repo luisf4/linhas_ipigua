@@ -65,7 +65,7 @@ class Horarios extends StatelessWidget {
                                         height: 30,
                                         decoration: BoxDecoration(
                                           border:
-                                              Border.all(color: Colors.black87),
+                                              Border.all(color: Colors.white30),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(50)),
                                         ),
@@ -78,8 +78,10 @@ class Horarios extends StatelessWidget {
                                       ),
                                       onTap: () => Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              SetAlarm(horario: sas[index]),
+                                          builder: (context) => SetAlarm(
+                                            horario: sas[index],
+                                            cidade: cidade,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -121,7 +123,7 @@ class Horarios extends StatelessWidget {
                                         height: 30,
                                         decoration: BoxDecoration(
                                           border:
-                                              Border.all(color: Colors.black87),
+                                              Border.all(color: Colors.white30),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(50)),
                                         ),
@@ -134,8 +136,10 @@ class Horarios extends StatelessWidget {
                                       ),
                                       onTap: () => Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              SetAlarm(horario: sab[index]),
+                                          builder: (context) => SetAlarm(
+                                            horario: sab[index],
+                                            cidade: cidade,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -177,7 +181,7 @@ class Horarios extends StatelessWidget {
                                         height: 30,
                                         decoration: BoxDecoration(
                                           border:
-                                              Border.all(color: Colors.black87),
+                                              Border.all(color: Colors.white30),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(50)),
                                         ),
@@ -190,8 +194,10 @@ class Horarios extends StatelessWidget {
                                       ),
                                       onTap: () => Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              SetAlarm(horario: dom[index]),
+                                          builder: (context) => SetAlarm(
+                                            horario: dom[index],
+                                            cidade: cidade,
+                                          ),
                                         ),
                                       ),
                                     ),
