@@ -22,4 +22,15 @@ class Utils {
       ..removeCurrentSnackBar()
       ..showSnackBar(snackBar);
   }
+
+  static showSnackBarOrange(String? text) {
+    if (text == null) return;
+
+    final snackBar =
+        SnackBar(content: Text(text), backgroundColor: Colors.orange);
+
+    messengerKey.currentState!
+      ..removeCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
 }

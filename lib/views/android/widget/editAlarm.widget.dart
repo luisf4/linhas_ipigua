@@ -134,7 +134,8 @@ class _EditAlarmState extends State<EditAlarm> {
                                         .cancelNotifications(document['id']);
                                     deleteData(document.id.toString());
                                     Navigator.of(context).pop();
-                                    Utils.showSnackBarGreen('Alarme Deletado!');
+                                    Utils.showSnackBarOrange(
+                                        'Alarme Deletado!');
                                   },
                                 ),
                               )
